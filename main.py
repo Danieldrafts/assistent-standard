@@ -1,4 +1,4 @@
-from assistent import Assistent
+from classes.assistent import Assistent
 
 if __name__ == '__main__':
     assistent = Assistent()

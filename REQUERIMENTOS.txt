@@ -1,4 +1,4 @@
-Python 3.6.8
+Python 3.5 > 3.6.8 > 3.7
 
 pip install ConfigParser
 pip install gTTS ou (py -m pip install gTTS)
@@ -13,8 +13,12 @@ pip install PyAudio
 pip install chatterbot
 
 cores no terminal
-pip install termcolor
+    pip install termcolor
 
+Requests
+    pip install Requests
+    pip install bs4
+    
 AUDIO:
 
     no debian precisei instalar: 
