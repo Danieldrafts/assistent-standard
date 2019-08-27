@@ -1,0 +1,25 @@
+Python 3.6.8
+
+pip install ConfigParser
+pip install gTTS ou (py -m pip install gTTS)
+
+pip install SpeechRecognition
+    MODO DE USO: https://github.com/Uberi/speech_recognition/blob/master/examples/microphone_recognition.py
+
+pip install PyAudio
+    no debian foi necessario instalar via: apt-get install python3-pyaudio
+    no Rapbian: sudo apt-get install python-pyaudio
+
+pip install chatterbot
+
+cores no terminal
+pip install termcolor
+
+AUDIO:
+
+    no debian precisei instalar: 
+        sudo apt install sox
+        apt install libsox-fmt-mp3
+        call(['play','-q', 'audios/bem_vindo.mp3'])  # LINUX
+
+    no rapsberry mpg321: sudo apt install mpg321
