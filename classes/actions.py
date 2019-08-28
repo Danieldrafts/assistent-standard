@@ -9,7 +9,7 @@ class Actions():
     def __init__(self, assistent):
         self.assistent = assistent
 
-    def verify_command(self, assistent, command):
+    def verify_command(self, command):
         if (command in ['vou te ensinar algo novo']):
             self.assistent.play_sound('denied.mp3')
             print('- '+self.assistent.name+': Você ainda não me programou para isto!')
