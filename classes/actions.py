@@ -4,6 +4,9 @@ import sys, os, platform
 import requests
 from bs4 import BeautifulSoup
 
+base_dir_name = os.path.dirname(os.path.abspath(__file__))
+base_dir_name = base_dir_name.replace ( "classes", "" ) 
+
 class Actions():
 
     def __init__(self, assistent):
@@ -62,9 +65,7 @@ class Actions():
             return True
         
         elif 'atualizar' in command or 'atualize' in command:
-            os.system('git pull https://danieldrafts:dantesm21@github.com/Danieldrafts/assistent-standard.git')
-            return True
-            
+            return self.update_asistent()    
         else:
             return False
     
@@ -79,3 +80,8 @@ class Actions():
         search = BeautifulSoup(search.text, 'html.parser')
         for result in search.findAll("div", {"class": "g"})[:5]:
             self.assistent.anwser(result)
+    
+    def update_asistent(self):       
+        os.system('git pull https://danieldrafts:dantesm21@github.com/Danieldrafts/assistent-standard.git')
+        os.system('sleep 10 | bash /home/pi/assistent.sh')
+        exit()
