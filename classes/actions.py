@@ -51,33 +51,35 @@ class Actions():
             return True
 
         elif command in ['quais são as últimas notícias', 'me dê as últimas notícias', 'me atualize das noticias', 'últimas notícias']:
-            site_news = requests.get("https://news.google.com/news/rss?ned=pt_br&gl=BR&hl=pt")
-            noticias =  BeautifulSoup(site_news.text, 'html.parser')
-            for noticia in noticias.findAll('item')[:5]:
-                message = noticia.title.text
-                self.assistent.anwser(message)
-            return True
+            return self.last_news()
 
         elif 'onde fica' in command or 'pesquise' in command:
-            command = command.replace(self.assistent.hotword, "")
-            command = command.replace(" ", "+")
             self.google_search(command)
             return True
-        elif 'teste' in command:
-            self.assistent.anwser('Parece que funcionou!')
 
         elif 'atualizar' in command or 'atualize' in command:
-            return self.update_asistent()    
+            return self.update_asistent()
+
         else:
             return False
     
     def repeat(self):
         self.assistent.anwser('Pode falar')
-        youSaid = self.assistent.voice_capture(message = "Escutando", phrase_time_limit = self.phrase_time_limit)
+        youSaid = self.assistent.voice_capture(message = "Escutando", phrase_time_limit = self.assistent.phrase_time_limit)
         self.assistent.writeMessage('Acho que você disse: "'+youSaid+'"')
         self.assistent.anwser('Acho que você disse: "'+youSaid)
 
+    def last_news(self):
+        site_news = requests.get("https://news.google.com/news/rss?ned=pt_br&gl=BR&hl=pt")
+        noticias =  BeautifulSoup(site_news.text, 'html.parser')
+        for noticia in noticias.findAll('item')[:5]:
+            message = noticia.title.text
+            self.assistent.anwser(message)
+        return True
+
     def google_search(self, keywords):
+        keywords = keywords.replace(self.assistent.hotword, "")
+        keywords = keywords.replace(" ", "+")
         search = requests.get("https://www.google.com/search?q={}&cr=brazil%20&lr=pt_br".format(keywords))
         search = BeautifulSoup(search.text, 'html.parser')
         for result in search.findAll("div", {"class": "g"})[:5]:

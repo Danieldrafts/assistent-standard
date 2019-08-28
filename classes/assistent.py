@@ -32,7 +32,7 @@ class Assistent():
         self.__color_output = general['assistent_text_color']
         self.timeout_capture = int(voice_capture['timeout_capture'])
         self.phrase_time_limit = int(voice_capture['phrase_time_limit'])
-        self.threshold = int(voice_capture['threshold'])
+        self.recognizer.energy_threshold = int(voice_capture['threshold'])
         self.language = general['language']
         self.__voiceToTextAPI = speech_api['voice_to_text_api']
         self.__apiKey = speech_api['api_key'] 
