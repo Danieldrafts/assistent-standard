@@ -3,6 +3,7 @@ from playsound import playsound
 from termcolor import colored
 import sys, os, platform
 from subprocess import call #necessario para usar em linux e MAC
+from datetime import date
 import requests
 from bs4 import BeautifulSoup
 from classes.voice import Voice
@@ -141,14 +142,21 @@ class Assistent():
         elif voice_command =='pode deixar' or voice_command == 'cancelar':
             self.anwser('Como quiser!')
             return True
-
+			
+		elif 'que dia é hoje' in voice_command:
+			data_e_hora_atuais = datetime.now()
+			data_e_hora_em_texto = data_e_hora_atuais.strftime(‘%d/%m/%Y’)
+			self.anwser('Hoje é: '+data_e_hora_em_texto)
+            return True
+			
         elif voice_command =='repita' or voice_command == 'repita o que eu disser':
             self.play_sound('accepted.mp3')
             self.repeat()
             return True
 
         elif 'reiniciar sistema' in voice_command:
-            call('sudo reboot')
+            os.system('sudo reboot')
+			self.anwser('Reiniciando!')
             return True
 
         elif voice_command in ['quais são as últimas notícias', 'me dê as últimas notícias', 'me atualize das noticias', 'últimas notícias']:
