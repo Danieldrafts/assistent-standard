@@ -63,7 +63,9 @@ class Actions():
             command = command.replace(" ", "+")
             self.google_search(command)
             return True
-        
+        elif 'teste' in command:
+            self.assistent.anwser('Parece que funcionou!')
+
         elif 'atualizar' in command or 'atualize' in command:
             return self.update_asistent()    
         else:
