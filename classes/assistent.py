@@ -1,12 +1,14 @@
+#-*- coding: utf-8 -*-
 import speech_recognition as sr
 from playsound import playsound
 from termcolor import colored
 import sys, os, platform
 from subprocess import call #necessario para usar em linux e MAC
-from datetime import datetime
+
 import requests
 from bs4 import BeautifulSoup
 from classes.voice import Voice
+from classes.actions import Actions
 from classes.settings import Settings
 
 base_dir_name = os.path.dirname(os.path.abspath(__file__))
@@ -129,64 +131,16 @@ class Assistent():
         
         if self.conversation(voice_command):
             return True
-        if (voice_command in ['vou te ensinar algo novo']):
-            print('- '+self.name+': Você ainda não me programou para isto!')
-            self.anwser('Você ainda não me programou para isto!')
-
-        elif voice_command in ['vá dormir', 'vai dormir']:
-            self.play_sound('accepted.mp3')
-            self.anwser('Ok, até mais!')
-            exit()
-            return True
-
-        elif voice_command =='pode deixar' or voice_command == 'cancelar':
-            self.anwser('Como quiser!')
-            return True
-			
-        elif 'que dia é hoje' in voice_command:
-            today = datetime.now()
-            today_date = today.strftime('%d/%m/%Y')
-            self.anwser('Hoje é: '+today_date)
-            return True
-
-        elif 'quantas horas' in voice_command or 'que horas são' in voice_command:
-            today = datetime.now()
-            today_date = today.strftime('%H:%M')
-            self.anwser('São: '+today_date)
-            return True
-
-        elif voice_command =='repita' or voice_command == 'repita o que eu disser':
-            self.play_sound('accepted.mp3')
-            self.repeat()
-            return True
-
-        elif 'reiniciar sistema' in voice_command:
-            os.system('sudo reboot')
-            self.anwser('Reiniciando!')
-            return True
-
-        elif voice_command in ['quais são as últimas notícias', 'me dê as últimas notícias', 'me atualize das noticias', 'últimas notícias']:
-            site_news = requests.get("https://news.google.com/news/rss?ned=pt_br&gl=BR&hl=pt")
-            noticias =  BeautifulSoup(site_news.text, 'html.parser')
-            for noticia in noticias.findAll('item')[:5]:
-                message = noticia.title.text
-                self.anwser(message)
-            return True
-
-        elif 'onde fica' in voice_command or 'pesquise' in voice_command:
-            voice_command = voice_command.replace(self.hotword, "")
-            voice_command = voice_command.replace(" ", "+")
-            self.google_search(voice_command)
-            return True
-            
         else:
-            return False
+            actions = Actions()
+            return actions.verify_command(self, voice_command)
+        
 #################################### ACTIONS ######################################
 
     def conversation(self, your_question):
         answers = {'como você está': 'muito bem, obrigado!', 'como vai você':'vou muito bem, obrigado!', 'faça café':'Não sou paga para isto!',
         'faz um café pra mim':'Não sou paga para isto!', 'me dê dinheiro': 'vai trabalhar!', 'me dá dinheiro': 'vai trabalhar!', 
-        'quem é você': 'eu sou '+self.name+' assistente virtual!','qual é p seu nome': 'meu nome é '+self.name,
+        'quem é você': 'eu sou '+self.name+' assistente virtual!','qual é o seu nome': 'meu nome é '+self.name,
         }
         for question in answers:
             if your_question in question:
