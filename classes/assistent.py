@@ -3,7 +3,7 @@ from playsound import playsound
 from termcolor import colored
 import sys, os, platform
 from subprocess import call #necessario para usar em linux e MAC
-from datetime import date
+from datetime import datetime
 import requests
 from bs4 import BeautifulSoup
 from classes.voice import Voice
@@ -12,7 +12,7 @@ from classes.settings import Settings
 base_dir_name = os.path.dirname(os.path.abspath(__file__))
 base_dir_name = base_dir_name.replace ( "classes", "" ) 
 
-print(base_dir_name)
+
 settings = Settings(base_dir_name+"/settings.ini")
 general = settings.get_section_settings('GENERAL')
 voice_capture = settings.get_section_settings('VOICE_CAPTURE')
@@ -144,11 +144,17 @@ class Assistent():
             return True
 			
 		elif 'que dia é hoje' in voice_command:
-			data_e_hora_atuais = datetime.now()
-			data_e_hora_em_texto = data_e_hora_atuais.strftime(‘%d/%m/%Y’)
-			self.anwser('Hoje é: '+data_e_hora_em_texto)
+			today = datetime.now()
+			today_date = today.strftime('%d/%m/%Y')
+			self.anwser('Hoje é: '+today_date)
             return True
-			
+
+		elif 'quantas horas' in voice_command or 'que horas são' in voice_command::
+			today = datetime.now()
+			today_date = today.strftime('%H:%M')
+			self.anwser('São: '+today_date)
+            return True
+
         elif voice_command =='repita' or voice_command == 'repita o que eu disser':
             self.play_sound('accepted.mp3')
             self.repeat()
