@@ -1,6 +1,6 @@
 #-*- coding: utf-8 -*-
 from datetime import datetime
-import sys, os, platform
+import sys, os, platform, time
 import requests
 from bs4 import BeautifulSoup
 
@@ -57,6 +57,10 @@ class Actions():
             self.google_search(command)
             return True
 
+        elif 'status da captação' in command:
+            self.show_energy_threshold()
+            return True
+            
         elif 'atualizar' in command or 'atualize' in command:
             return self.update_asistent()
 
@@ -89,3 +93,10 @@ class Actions():
         os.system('git pull https://danieldrafts:dantesm21@github.com/Danieldrafts/assistent-standard.git')
         os.system('sleep 10 | bash /home/pi/assistent.sh')
         exit()
+    
+    def show_energy_threshold(self):
+        i = 0
+        for i in range(0 < 7):
+            print("Current ambient caption: "+self.assistent.recognizer.energy_threshold)
+            i = i+1
+            time.sleep(2)
