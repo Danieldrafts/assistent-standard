@@ -143,16 +143,16 @@ class Assistent():
             self.anwser('Como quiser!')
             return True
 			
-		elif 'que dia é hoje' in voice_command:
-			today = datetime.now()
-			today_date = today.strftime('%d/%m/%Y')
-			self.anwser('Hoje é: '+today_date)
+        elif 'que dia é hoje' in voice_command:
+            today = datetime.now()
+            today_date = today.strftime('%d/%m/%Y')
+            self.anwser('Hoje é: '+today_date)
             return True
 
-		elif 'quantas horas' in voice_command or 'que horas são' in voice_command::
-			today = datetime.now()
-			today_date = today.strftime('%H:%M')
-			self.anwser('São: '+today_date)
+        elif 'quantas horas' in voice_command or 'que horas são' in voice_command:
+            today = datetime.now()
+            today_date = today.strftime('%H:%M')
+            self.anwser('São: '+today_date)
             return True
 
         elif voice_command =='repita' or voice_command == 'repita o que eu disser':
@@ -162,7 +162,7 @@ class Assistent():
 
         elif 'reiniciar sistema' in voice_command:
             os.system('sudo reboot')
-			self.anwser('Reiniciando!')
+            self.anwser('Reiniciando!')
             return True
 
         elif voice_command in ['quais são as últimas notícias', 'me dê as últimas notícias', 'me atualize das noticias', 'últimas notícias']:
