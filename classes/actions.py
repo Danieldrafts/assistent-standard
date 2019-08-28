@@ -60,7 +60,7 @@ class Actions():
         elif 'status da captação' in command:
             self.show_energy_threshold()
             return True
-            
+
         elif 'atualizar' in command or 'atualize' in command:
             return self.update_asistent()
 
@@ -89,7 +89,8 @@ class Actions():
         for result in search.findAll("div", {"class": "g"})[:5]:
             self.assistent.anwser(result)
     
-    def update_asistent(self):       
+    def update_asistent(self):   
+        self.assistent.anwser('Recebendo atualizações!') 
         os.system('git pull https://danieldrafts:dantesm21@github.com/Danieldrafts/assistent-standard.git')
         os.system('sleep 10 | bash /home/pi/assistent.sh')
         exit()
@@ -97,6 +98,6 @@ class Actions():
     def show_energy_threshold(self):
         i = 0
         for i in range(0 < 7):
-            print("Current ambient caption: "+self.assistent.recognizer.energy_threshold)
+            print("Current ambient caption: "+str(self.assistent.recognizer.energy_threshold))
             i = i+1
             time.sleep(2)
