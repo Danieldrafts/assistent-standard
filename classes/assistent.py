@@ -1,12 +1,8 @@
 #-*- coding: utf-8 -*-
 import speech_recognition as sr
-from playsound import playsound
 from termcolor import colored
 import sys, os, platform
 from subprocess import call #necessario para usar em linux e MAC
-
-import requests
-from bs4 import BeautifulSoup
 from classes.voice import Voice
 from classes.actions import Actions
 from classes.settings import Settings
@@ -132,10 +128,10 @@ class Assistent():
         if self.conversation(voice_command):
             return True
         else:
-            actions = Actions()
-            return actions.verify_command(self, voice_command)
+            actions = Actions(self)
+            return actions.verify_command(voice_command)
         
-#################################### ACTIONS ######################################
+#################################### INTERACTIONS ######################################
 
     def conversation(self, your_question):
         answers = {'como você está': 'muito bem, obrigado!', 'como vai você':'vou muito bem, obrigado!', 'faça café':'Não sou paga para isto!',
@@ -151,17 +147,6 @@ class Assistent():
                 self.anwser('Como quiser!')
                 return True
                 
-    def repeat(self):
-        self.anwser('Pode falar')
-        youSaid = self.voice_capture(message = "Escutando", phrase_time_limit = self.phrase_time_limit)
-        self.writeMessage('Acho que você disse: "'+youSaid+'"')
-        self.anwser('Acho que você disse: "'+youSaid)
-
-    def google_search(self, keywords):
-        search = requests.get("https://www.google.com/search?q={}&cr=brazil%20&lr=pt_br".format(keywords))
-        search = BeautifulSoup(search.text, 'html.parser')
-        for result in search.findAll("div", {"class": "g"})[:5]:
-            self.anwser(result)
 
 
 

@@ -8,6 +8,7 @@ class Actions():
 
     def __init__(self, assistent):
         self.assistent = assistent
+
     def verify_command(self, assistent, command):
         if (command in ['vou te ensinar algo novo']):
             self.assistent.play_sound('denied.mp3')
@@ -42,7 +43,7 @@ class Actions():
             return True
 
         elif 'reiniciar sistema' in command:
-            assistent.anwser('Reiniciando!')
+            self.assistent.anwser('Reiniciando!')
             os.system('sudo reboot')
             return True
 
@@ -51,11 +52,11 @@ class Actions():
             noticias =  BeautifulSoup(site_news.text, 'html.parser')
             for noticia in noticias.findAll('item')[:5]:
                 message = noticia.title.text
-                assistent.anwser(message)
+                self.assistent.anwser(message)
             return True
 
         elif 'onde fica' in command or 'pesquise' in command:
-            command = command.replace(assistent.hotword, "")
+            command = command.replace(self.assistent.hotword, "")
             command = command.replace(" ", "+")
             self.google_search(command)
             return True
