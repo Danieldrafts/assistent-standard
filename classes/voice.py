@@ -3,6 +3,9 @@ import os, platform, random
 from subprocess import call #necessario para usar em linux e MAC
 from playsound import playsound
 
+base_dir_name = os.path.dirname(os.path.abspath(__file__))
+base_dir_name = base_dir_name.replace ( "classes", "" )
+
 class Voice():
     def __init__(self, language = 'pt-br'):
         self.language = language
@@ -25,12 +28,12 @@ class Voice():
         version = random.randint(1,900)
         version = str(version)
         try:
-            self.create_audio(message, 'audios/speaking'+version+'.mp3')
-            self.play_audio('audios/speaking'+version+'.mp3')
-            os.remove('audios/speaking'+version+'.mp3')
+            self.create_audio(message, base_dir_name+'audios/speaking'+version+'.mp3')
+            self.play_audio(base_dir_name+'audios/speaking'+version+'.mp3')
+            os.remove(base_dir_name+'audios/speaking'+version+'.mp3')
         except PermissionError:
             version = random.randint(1,10)
             version = str(version)
-            self.create_audio(message, 'audios/speaking-temp'+version+'.mp3')
-            self.play_audio('audios/speaking-temp'+version+'.mp3')
-            os.remove('audios/speaking-temp'+version+'.mp3')
+            self.create_audio(message, base_dir_name+'audios/speaking-temp'+version+'.mp3')
+            self.play_audio(base_dir_name+'audios/speaking-temp'+version+'.mp3')
+            os.remove(base_dir_name+'audios/speaking-temp'+version+'.mp3')

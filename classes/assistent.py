@@ -8,7 +8,11 @@ from bs4 import BeautifulSoup
 from classes.voice import Voice
 from classes.settings import Settings
 
-settings = Settings()
+base_dir_name = os.path.dirname(os.path.abspath(__file__))
+base_dir_name = base_dir_name.replace ( "classes", "" ) 
+
+print(base_dir_name)
+settings = Settings(base_dir_name+"/settings.ini")
 general = settings.get_section_settings('GENERAL')
 voice_capture = settings.get_section_settings('VOICE_CAPTURE')
 speech_api = settings.get_section_settings('SPEECH_API')
@@ -141,6 +145,10 @@ class Assistent():
         elif voice_command =='repita' or voice_command == 'repita o que eu disser':
             self.play_sound('accepted.mp3')
             self.repeat()
+            return True
+
+        elif 'reiniciar sistema' in voice_command:
+            call('sudo reboot')
             return True
 
         elif voice_command in ['quais são as últimas notícias', 'me dê as últimas notícias', 'me atualize das noticias', 'últimas notícias']:
