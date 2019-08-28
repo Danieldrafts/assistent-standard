@@ -62,7 +62,7 @@ class Actions():
             return True
         
         elif 'atualizar' in command or 'atualize' in command:
-            os.system('https://danieldrafts:dantesm21@github.com/Danieldrafts/assistent-standard.git')
+            os.system('git pull https://danieldrafts:dantesm21@github.com/Danieldrafts/assistent-standard.git')
             return True
             
         else:
