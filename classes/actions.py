@@ -40,14 +40,9 @@ class Actions():
             self.assistent.anwser('São: '+today_date)
             return True
 
-        elif command =='repita' or command == 'repita o que eu disser':
+        elif 'repita' in command or 'repita o que eu disser' in command:
             self.assistent.play_sound('accepted.mp3')
             self.repeat()
-            return True
-
-        elif 'reiniciar sistema' in command:
-            self.assistent.anwser('Reiniciando!')
-            os.system('sudo reboot')
             return True
 
         elif command in ['quais são as últimas notícias', 'me dê as últimas notícias', 'me atualize das noticias', 'últimas notícias']:
@@ -64,6 +59,15 @@ class Actions():
         elif 'atualizar' in command or 'atualize' in command:
             return self.update_asistent()
 
+        elif 'reiniciar sistema' in command:
+            self.assistent.anwser('Reiniciando!')
+            os.system('sudo reboot')
+            return True
+
+        elif 'desligar sistema' in command:
+            self.assistent.anwser('Desligando... Até a próxima!')
+            os.system('sudo shutdown -h now')
+            return True   
         else:
             return False
     
