@@ -18,7 +18,7 @@ class Actions():
             print('- '+self.assistent.name+': Você ainda não me programou para isto!')
             self.assistent.anwser('Você ainda não me programou para isto!')
 
-        elif command in ['vá dormir', 'vai dormir', 'fechar assistente']:
+        elif ['vá dormir', 'vai dormir', 'fechar assistente'] in command:
             self.assistent.play_sound('accepted.mp3')
             self.assistent.anwser('Ok, até mais!')
             exit()
