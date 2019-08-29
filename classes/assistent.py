@@ -139,11 +139,11 @@ class Assistent():
         'quem é você': 'eu sou '+self.name+' assistente virtual!','qual é o seu nome': 'meu nome é '+self.name,
         }
         for question in answers:
-            if your_question in question:
+            if question in your_question:
                 self.play_sound('accepted.mp3')
                 self.anwser(answers[question])
                 return True
-            elif your_question =='pode deixar' or your_question == 'cancelar':
+            elif 'pode deixar' in your_question or 'cancelar' in your_question:
                 self.anwser('Como quiser!')
                 return True
                 
